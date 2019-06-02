@@ -5,10 +5,11 @@ import moment from 'moment';
 
 interface ITimeCardProps {
   eta: Eta;
+  timesRefreshed: number;
 }
 
 const TimeCard = (props: ITimeCardProps) => {
-  const { eta } = props;
+  const { eta, timesRefreshed } = props;
   const { arrT, prdt, destNm } = eta;
 
   var now = moment.utc(prdt).format('DD/MM/YYYY HH:mm:ss');
@@ -21,10 +22,11 @@ const TimeCard = (props: ITimeCardProps) => {
         <div>
           {moment
             .utc(moment(then, 'DD/MM/YYYY HH:mm:ss').diff(moment(now, 'DD/MM/YYYY HH:mm:ss')))
-            .format('mm')}
+            .format('m')}
         </div>
+        <div>{moment.utc(arrT).format('h:mm a')}</div>
       </div>
-      <div>Sup Devin</div>
+      <div>{timesRefreshed}</div>
     </React.Fragment>
   );
 };

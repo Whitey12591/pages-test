@@ -18,6 +18,7 @@ interface IState {
   isLoaded: boolean;
   arrivals: RootObject;
   time: Date;
+  timesRefreshed: number;
 }
 
 // Clock has no properties, but the current state is of type ClockState
@@ -30,84 +31,40 @@ export class App extends Component<{}, IState> {
       error: false,
       isLoaded: false,
       arrivals: {} as RootObject,
-      time: new Date()
+      time: new Date(),
+      timesRefreshed: 0
     };
   }
 
   // The tick function sets the current state. TypeScript will let us know
   // which ones we are allowed to set.
-  tick() {
-    this.setState({
-      time: new Date()
-    });
-  }
-
-  // Before the component mounts, we initialise our state
-  // componentWillMount() {
-  //   this.tick();
+  // tick() {
+  //   this.setState({
+  //     time: new Date()
+  //   });
   // }
 
-  // After the component did mount, we set the state each second.
-  componentWillMount() {
+  loadData = async () => {
     axios
       .get<RootObject>(
         `${'https://cors-anywhere.herokuapp.com/'}https://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=d4102257b59c4a0a82809fec190a2140&outputType=JSON&mapid=40360`
       )
       .then(result => {
-        // debugger;
         this.setState({
           isLoaded: true,
-          arrivals: result.data
+          arrivals: result.data,
+          timesRefreshed: this.state.timesRefreshed + 1
         });
-        // console.log(this.state.arrivals);
       });
+  };
+
+  componentDidMount() {
+    this.loadData();
+    setInterval(this.loadData, 10000);
   }
 
-  // // render will know everything!
-  // render() {
-  //   const { arrivals } = this.state;
-  //   return (
-  //     <div className="App">
-  //       <header className="App-header">
-  //         <img src={logo} className="App-logo" alt="logo" />
-
-  //         {/* <div>
-  //           {arrivals && (
-  //             <div>
-  //               {arrivals.ctatt && (
-  //                 <div>
-  //                   {arrivals.ctatt.eta && (
-  //                     <div>
-  //                       {arrivals.ctatt.eta.map((time: CTA_DTO.Eta, key) => {
-  //                         return (
-  //                           <div key={key}>
-  //                             <TimeCard times={time} />
-  //                           </div>
-  //                         );
-  //                       })}
-  //                     </div>
-  //                   )}
-  //                 </div>
-  //               )}
-  //             </div>
-  //           )}
-  //         </div> */}
-
-  //         <a
-  //           className="App-link"
-  //           href="https://reactjs.org"
-  //           target="_blank"
-  //           rel="noopener noreferrer"
-  //         >
-  //           Learn React
-  //         </a>
-  //       </header>
-  //     </div>
-  //   );
-  // }
-
   render() {
-    const { error, isLoaded, arrivals } = this.state;
+    const { error, isLoaded, arrivals, timesRefreshed } = this.state;
     if (error) {
       return <div>Error: </div>;
     } else if (!isLoaded) {
@@ -117,7 +74,7 @@ export class App extends Component<{}, IState> {
         <ul>
           {arrivals.ctatt.eta.map((time: Eta, key) => (
             // <li key={key}>{moment.utc(time.arrT).format('h:mm:ss a')}</li>
-            <TimeCard key={key} eta={time} />
+            <TimeCard key={key} eta={time} timesRefreshed={timesRefreshed} />
           ))}
         </ul>
       );
