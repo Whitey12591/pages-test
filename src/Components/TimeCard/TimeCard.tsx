@@ -1,25 +1,31 @@
 import React from 'react';
 import { Eta } from '../../Data/cta_dto';
-
+import './TimeCard.css';
 import moment from 'moment';
 
-interface IProps {
+interface ITimeCardProps {
   eta: Eta;
 }
 
-const TimeCard = (props: IProps) => {
+const TimeCard = (props: ITimeCardProps) => {
   const { eta } = props;
-  const { arrT, prdt } = eta;
+  const { arrT, prdt, destNm } = eta;
 
   var now = moment.utc(prdt).format('DD/MM/YYYY HH:mm:ss');
   var then = moment.utc(arrT).format('DD/MM/YYYY HH:mm:ss');
 
   return (
-    <li>
-      {moment
-        .utc(moment(then, 'DD/MM/YYYY HH:mm:ss').diff(moment(now, 'DD/MM/YYYY HH:mm:ss')))
-        .format('mm')}
-    </li>
+    <React.Fragment>
+      <div className="card-container">
+        <div>{destNm}</div>
+        <div>
+          {moment
+            .utc(moment(then, 'DD/MM/YYYY HH:mm:ss').diff(moment(now, 'DD/MM/YYYY HH:mm:ss')))
+            .format('mm')}
+        </div>
+      </div>
+      <div>Sup Devin</div>
+    </React.Fragment>
   );
 };
 
