@@ -1,8 +1,8 @@
 {
-  "name": "cta-tracker",
+  "name": "pages-test",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://whitey12591.github.io/cta-tracker",
+  "homepage": "https://whitey12591.github.io/pages-test",
   "dependencies": {
     "@types/jest": "^24.0.13",
     "@types/node": "^12.0.4",
