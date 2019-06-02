@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/cta-tracker/static/css/main.2cce8147.chunk.css",
+    "main.js": "/cta-tracker/static/js/main.e6e1c1bf.chunk.js",
+    "main.js.map": "/cta-tracker/static/js/main.e6e1c1bf.chunk.js.map",
+    "runtime~main.js": "/cta-tracker/static/js/runtime~main.9af02594.js",
+    "runtime~main.js.map": "/cta-tracker/static/js/runtime~main.9af02594.js.map",
+    "static/js/2.0aa6a791.chunk.js": "/cta-tracker/static/js/2.0aa6a791.chunk.js",
+    "static/js/2.0aa6a791.chunk.js.map": "/cta-tracker/static/js/2.0aa6a791.chunk.js.map",
+    "index.html": "/cta-tracker/index.html",
+    "precache-manifest.638efc54726aa554714cc3156a155e6c.js": "/cta-tracker/precache-manifest.638efc54726aa554714cc3156a155e6c.js",
+    "service-worker.js": "/cta-tracker/service-worker.js",
+    "static/css/main.2cce8147.chunk.css.map": "/cta-tracker/static/css/main.2cce8147.chunk.css.map"
+  }
+}
